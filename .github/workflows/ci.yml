@@ -1,0 +1,30 @@
+name: Java CI with Gradle
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Завантаження коду репозиторію
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Встановлення JDK
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: temurin
+
+      # Дозвіл на виконання gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      # Запуск тестів
+      - name: Build and run tests
+        run: ./gradlew test
